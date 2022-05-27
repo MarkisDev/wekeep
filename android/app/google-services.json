@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "384771016211",
+    "project_id": "wekeep-6d7e4",
+    "storage_bucket": "wekeep-6d7e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384771016211:android:44a98e1f709b469b73a1e6",
+        "android_client_info": {
+          "package_name": "com.markisdev.wekeep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384771016211-lgrsu7rn7kllj0tovs90p8clkuli9r9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.markisdev.wekeep",
+            "certificate_hash": "7f02fb96241bd4eb8bb1a96e7307f74d8cd71c12"
+          }
+        },
+        {
+          "client_id": "384771016211-tvkigq0hd0isenh1ojpnfjl0cjnlf17g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZnHADno3_5pwtNEUvE9vDPt8lLlsY1tc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384771016211-tvkigq0hd0isenh1ojpnfjl0cjnlf17g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
