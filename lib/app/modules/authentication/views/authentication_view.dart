@@ -7,7 +7,7 @@ import '../controllers/authentication_controller.dart';
 class AuthenticationView extends StatelessWidget {
   AuthenticationView({Key? key}) : super(key: key);
   final AuthenticationController controller =
-      Get.put(AuthenticationController());
+      Get.find<AuthenticationController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
