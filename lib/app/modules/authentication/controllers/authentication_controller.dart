@@ -33,7 +33,7 @@ class AuthenticationController extends GetxController {
       final authResult = await _auth.signInWithCredential(credential);
 
       final User? user = authResult.user;
-      Get.toNamed('/home');
+      Get.toNamed('/home', arguments: googleSignInAccount);
       return;
     } catch (e) {
       throw (e);

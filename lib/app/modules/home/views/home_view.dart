@@ -13,11 +13,25 @@ class HomeView extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Welcome Get.arguments.displayName.toString()'),
+          Divider(),
+          Expanded(
+            child: ListView.builder(
+                itemCount: 20,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text('Phone'),
+                      subtitle: Text('Expires on 23/02/22'),
+                    ),
+                  );
+                }),
+          )
+        ],
+      )),
     );
   }
 }
