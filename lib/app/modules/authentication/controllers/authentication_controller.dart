@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationController extends GetxController {
-  //TODO: Implement AuthenticationController
-
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
   final count = 0.obs;
   @override
   void onInit() {
@@ -16,5 +18,31 @@ class AuthenticationController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  // Logins user using GoogleSignIn
+  loginWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleSignInAuthentication =
+          await googleSignInAccount?.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication!.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      final authResult = await _auth.signInWithCredential(credential);
+
+      final User? user = authResult.user;
+      Get.toNamed('/home');
+      return;
+    } catch (e) {
+      throw (e);
+    }
+  }
+
+  /// Logs user out
+  Future<void> logoutGoogle() async {
+    await googleSignIn.signOut();
+    Get.back();
+  }
 }

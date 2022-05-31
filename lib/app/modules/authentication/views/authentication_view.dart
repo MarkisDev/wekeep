@@ -4,18 +4,32 @@ import 'package:get/get.dart';
 
 import '../controllers/authentication_controller.dart';
 
-class AuthenticationView extends GetView<AuthenticationController> {
+class AuthenticationView extends StatelessWidget {
+  AuthenticationView({Key? key}) : super(key: key);
+  final AuthenticationController controller =
+      Get.put(AuthenticationController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AuthenticationView'),
-        centerTitle: true,
+        title: Text('Login'),
       ),
-      body: Center(
-        child: Text(
-          'AuthenticationView is working',
-          style: TextStyle(fontSize: 20),
+      body: Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            FlatButton(
+              color: Colors.blue,
+              onPressed: () => controller.loginWithGoogle(),
+              child: Center(
+                  child: Text(
+                "Login with google",
+                style: TextStyle(color: Colors.white),
+              )),
+            )
+          ],
         ),
       ),
     );
