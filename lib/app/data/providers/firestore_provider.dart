@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
+import 'package:get/get.dart';
 
 class FirestoreDb {
   static final FirebaseFirestore _firebaseFirestore =
@@ -15,6 +16,23 @@ class FirestoreDb {
       'category': productModel.category,
       'warrantyMonths': productModel.warrantyMonths,
       'notes': productModel.notes,
+    });
+  }
+
+  static Stream<List<ProductModel>> productStream(RxString uid) {
+    return _firebaseFirestore
+        .collection('users')
+        .doc(uid.value)
+        .collection('products')
+        .snapshots()
+        .map((QuerySnapshot query) {
+      List<ProductModel> products = [];
+      for (var product in query.docs) {
+        final productModel =
+            ProductModel.fromDocumentSnapshot(documentSnapshot: product);
+        products.add(productModel);
+      }
+      return products;
     });
   }
 }
