@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:wekeep/app/core/values/constants.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
 import 'package:wekeep/app/data/models/user_models.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class HomeController extends GetxController {
   final productList = <ProductModel>[].obs;
-  final uid = ''.obs;
+  final uid = auth.currentUser!.uid.obs;
 
   // ---------------Section to manage form ------------
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -25,7 +26,7 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    productList.bindStream(FirestoreDb.productStream(uid.value));
+    productList.bindStream(FirestoreDb.productStream(auth.currentUser!.uid));
   }
 
   @override
