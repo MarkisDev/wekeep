@@ -21,8 +21,13 @@ class HomeView extends GetView<HomeController> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Welcome ${Get.arguments.displayName.toString()}'),
-          Divider(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Welcome ${Get.arguments.displayName.toString()!}',
+              style: TextStyle(fontSize: 21),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
                 itemCount: 20,
