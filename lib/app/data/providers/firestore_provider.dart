@@ -47,8 +47,8 @@ class FirestoreDb {
   }
 
   //------------User Related Functions----------
-  static addUser(UserModel userModel) async {
-    await _firebaseFirestore.collection('users').doc(userModel.id).set({
+  static addUser(UserModel userModel, String uid) async {
+    await _firebaseFirestore.collection('users').doc(uid).set({
       'name': userModel.name,
       'email': userModel.email,
       'id': userModel.id,
