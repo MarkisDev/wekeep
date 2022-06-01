@@ -8,7 +8,10 @@ class ProductModel {
   late int warrantyMonths;
 
   ProductModel(
-      {required this.name, required category, required warrantyMonths, notes});
+      {required this.name,
+      required this.category,
+      required this.warrantyMonths,
+      this.notes});
 
   /// Constructor to init variables from Firebase
   ProductModel.fromDocumentSnapshot(
