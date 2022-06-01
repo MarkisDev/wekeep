@@ -1,10 +1,19 @@
 import 'package:get/get.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
+import 'package:flutter/material.dart';
 
 class HomeController extends GetxController {
   final productList = <ProductModel>[].obs;
   final uid = ''.obs;
+
+  // ---------------Section to manage form ------------
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  var nameController = TextEditingController();
+  var notesController = TextEditingController();
+  var categoryController = TextEditingController();
+  var warrantyMonthsController = TextEditingController();
+
   List<ProductModel> get products => productList.value;
 
   @override
@@ -18,5 +27,10 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    nameController.dispose();
+    categoryController.dispose();
+    notesController.dispose();
+    warrantyMonthsController.dispose();
+  }
 }
