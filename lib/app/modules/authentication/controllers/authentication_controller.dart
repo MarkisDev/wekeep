@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:wekeep/app/data/models/user_models.dart';
+import 'package:wekeep/app/data/providers/firestore_provider.dart';
 
 class AuthenticationController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,9 +33,15 @@ class AuthenticationController extends GetxController {
         idToken: googleSignInAuthentication.idToken,
       );
       final authResult = await _auth.signInWithCredential(credential);
-
-      final User? user = authResult.user;
-      Get.toNamed('/home', arguments: googleSignInAccount);
+      // Firebase Auth User
+      // final User? user = authResult.user;
+      UserModel userModel = UserModel(
+          name: googleSignInAccount!.displayName.toString(),
+          email: googleSignInAccount.email,
+          id: googleSignInAccount.id,
+          photoUrl: googleSignInAccount.photoUrl.toString());
+      await FirestoreDb.addUser(userModel);
+      await Get.toNamed('/home', arguments: googleSignInAccount);
       return;
     } catch (e) {
       throw (e);
