@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:wekeep/app/global_widgets/appBar.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -12,10 +13,7 @@ class HomeView extends GetView<HomeController> {
         onPressed: () {},
         child: Icon(Icons.add),
       ),
-      appBar: AppBar(
-        title: Text('Wekeep'),
-        centerTitle: true,
-      ),
+      appBar: appBar,
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
