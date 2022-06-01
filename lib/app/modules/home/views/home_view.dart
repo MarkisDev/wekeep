@@ -12,7 +12,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(AddView());
+          Get.to(() => AddView());
         },
         child: Icon(Icons.add),
       ),
