@@ -23,7 +23,7 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    productList.bindStream(FirestoreDb.productStream(uid));
+    productList.bindStream(FirestoreDb.productStream(uid.value));
   }
 
   @override
