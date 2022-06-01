@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
-import 'package:get/get.dart';
 
 class FirestoreDb {
   static final FirebaseFirestore _firebaseFirestore =
@@ -19,10 +18,10 @@ class FirestoreDb {
     });
   }
 
-  static Stream<List<ProductModel>> productStream(RxString uid) {
+  static Stream<List<ProductModel>> productStream(String uid) {
     return _firebaseFirestore
         .collection('users')
-        .doc(uid.value)
+        .doc(uid)
         .collection('products')
         .snapshots()
         .map((QuerySnapshot query) {
