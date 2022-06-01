@@ -37,7 +37,7 @@ class FirestoreDb {
     });
   }
 
-  static deleteTodo(String documentId, String uid) {
+  static deleteProduct(String documentId, String uid) {
     _firebaseFirestore
         .collection('users')
         .doc(uid)

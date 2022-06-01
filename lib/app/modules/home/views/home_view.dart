@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
 import 'package:wekeep/app/modules/home/views/add_view.dart';
 
@@ -39,6 +40,27 @@ class HomeView extends StatelessWidget {
                         final _productModel = homeController.products[index];
                         return Card(
                           child: ListTile(
+                            trailing: IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () async {
+                                  await FirestoreDb.deleteProduct(
+                                      _productModel.productId.toString(),
+                                      Get.arguments.uid);
+                                  Get.snackbar(
+                                    'Success!',
+                                    'Deleted product!',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    borderRadius: 20,
+                                    margin: EdgeInsets.all(15),
+                                    colorText: Colors.white,
+                                    duration: Duration(seconds: 4),
+                                    isDismissible: true,
+                                    dismissDirection:
+                                        DismissDirection.horizontal,
+                                    forwardAnimationCurve: Curves.easeOutBack,
+                                  );
+                                }),
                             title: Text(_productModel.name),
                             subtitle: Text(
                                 'Expires in ${_productModel.warrantyMonths} months'),
