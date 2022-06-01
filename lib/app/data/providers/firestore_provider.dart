@@ -48,7 +48,7 @@ class FirestoreDb {
 
   //------------User Related Functions----------
   static addUser(UserModel userModel, String uid) async {
-    await _firebaseFirestore.collection('users').doc(uid).add({
+    await _firebaseFirestore.collection('users').add({
       'name': userModel.name,
       'email': userModel.email,
       'id': userModel.id,
