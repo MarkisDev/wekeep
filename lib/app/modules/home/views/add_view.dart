@@ -7,6 +7,7 @@ import '../controllers/home_controller.dart';
 class AddView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
+    controller.uid.value = Get.arguments;
     return Scaffold(
       appBar: appBar,
       body: Column(children: [
@@ -15,9 +16,7 @@ class AddView extends GetView<HomeController> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(children: [
-              Center(
-                child: Text('Enter product details'),
-              ),
+              Center(child: Text('Enter product details')),
               TextFormField(
                 controller: controller.nameController,
                 decoration: const InputDecoration(labelText: 'Name'),
