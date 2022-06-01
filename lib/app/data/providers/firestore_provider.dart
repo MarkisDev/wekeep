@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
+import 'package:wekeep/app/data/models/user_models.dart';
 
 class FirestoreDb {
   static final FirebaseFirestore _firebaseFirestore =
       FirebaseFirestore.instance;
 
+  //-------Product Related Functions-----------
   static addProduct(ProductModel productModel, String uid) async {
     await _firebaseFirestore
         .collection('users')
@@ -42,5 +44,15 @@ class FirestoreDb {
         .collection('products')
         .doc(documentId)
         .delete();
+  }
+
+  //------------User Related Functions----------
+  static addUser(UserModel userModel, String uid) async {
+    await _firebaseFirestore.collection('users').doc(uid).add({
+      'name': userModel.name,
+      'email': userModel.email,
+      'id': userModel.id,
+      'photoUrl': userModel.photoUrl,
+    });
   }
 }
