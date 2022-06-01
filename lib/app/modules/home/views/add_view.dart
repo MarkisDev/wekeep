@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
+import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
 import '../controllers/home_controller.dart';
 
@@ -30,8 +32,12 @@ class AddView extends GetView<HomeController> {
                 },
               ),
               TextFormField(
-                controller: controller.nameController,
+                keyboardType: TextInputType.number,
+                controller: controller.warrantyMonthsController,
                 decoration: const InputDecoration(labelText: 'Warranty Months'),
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -42,7 +48,7 @@ class AddView extends GetView<HomeController> {
                 },
               ),
               TextFormField(
-                controller: controller.nameController,
+                controller: controller.categoryController,
                 decoration: const InputDecoration(labelText: 'Category'),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
@@ -54,7 +60,7 @@ class AddView extends GetView<HomeController> {
                 },
               ),
               TextFormField(
-                controller: controller.nameController,
+                controller: controller.notesController,
                 decoration: const InputDecoration(labelText: 'Notes'),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
@@ -67,12 +73,16 @@ class AddView extends GetView<HomeController> {
               ),
               ElevatedButton(
                   onPressed: () async {
-                    final productModel = ProductModel(
-                        name: controller.nameController.text,
-                        category: controller.categoryController.text,
-                        warrantyMonths:
-                            controller.warrantyMonthsController.text,
-                        notes: controller.notesController.text);
+                    if (controller.formKey.currentState!.validate()) {
+                      final productModel = ProductModel(
+                          name: controller.nameController.text,
+                          category: controller.categoryController.text,
+                          warrantyMonths: int.parse(
+                              controller.warrantyMonthsController.text),
+                          notes: controller.notesController.text);
+                      await FirestoreDb.addProduct(
+                          productModel, controller.uid.value);
+                    }
                   },
                   child: Text('Add'))
             ]),
