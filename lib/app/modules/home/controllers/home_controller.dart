@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:wekeep/app/data/models/product_model.dart';
+import 'package:wekeep/app/data/providers/firebase_provider.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  final productList = <ProductModel>[].obs;
+  List<ProductModel> get products => productList.value;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -11,10 +13,9 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    super.onReady();
+    productList.bindStream(FirestoreDb.productStream());
   }
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }
