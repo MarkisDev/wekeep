@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
+import 'package:wekeep/app/modules/home/views/add_view.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -10,7 +11,9 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(AddView());
+        },
         child: Icon(Icons.add),
       ),
       appBar: appBar,
