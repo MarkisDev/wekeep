@@ -82,6 +82,19 @@ class AddView extends GetView<HomeController> {
                           notes: controller.notesController.text);
                       await FirestoreDb.addProduct(
                           productModel, controller.uid.value);
+                      Get.snackbar(
+                        'Success!',
+                        'Added product!',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.green,
+                        borderRadius: 20,
+                        margin: EdgeInsets.all(15),
+                        colorText: Colors.white,
+                        duration: Duration(seconds: 4),
+                        isDismissible: true,
+                        dismissDirection: DismissDirection.horizontal,
+                        forwardAnimationCurve: Curves.easeOutBack,
+                      );
                     }
                   },
                   child: Text('Add'))
