@@ -21,7 +21,7 @@ class HomeView extends GetView<HomeController> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Welcome Get.arguments.displayName.toString()'),
+          Text('Welcome ${Get.arguments.displayName.toString()}'),
           Divider(),
           Expanded(
             child: ListView.builder(
