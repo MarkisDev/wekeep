@@ -35,4 +35,13 @@ class FirestoreDb {
       return products;
     });
   }
+
+  static deleteTodo(String documentId, String uid) {
+    _firebaseFirestore
+        .collection('users')
+        .doc(uid)
+        .collection('products')
+        .doc(documentId)
+        .delete();
+  }
 }
