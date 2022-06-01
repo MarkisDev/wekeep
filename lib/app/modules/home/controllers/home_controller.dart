@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
+import 'package:wekeep/app/data/models/user_models.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class HomeController extends GetxController {
   var categoryController = TextEditingController();
   var warrantyMonthsController = TextEditingController();
 
+// Getter to get all the products from the list
   List<ProductModel> get products => productList.value;
 
   @override
