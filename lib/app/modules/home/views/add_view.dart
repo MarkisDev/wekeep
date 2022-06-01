@@ -9,7 +9,6 @@ import '../controllers/home_controller.dart';
 class AddView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    controller.uid.value = Get.arguments;
     return Scaffold(
       appBar: appBar,
       body: Column(children: [
@@ -80,8 +79,8 @@ class AddView extends GetView<HomeController> {
                           warrantyMonths: int.parse(
                               controller.warrantyMonthsController.text),
                           notes: controller.notesController.text);
-                      await FirestoreDb.addProduct(
-                          productModel, controller.uid.value);
+                      await FirestoreDb.addProduct(productModel, Get.arguments);
+                      Get.back();
                       Get.snackbar(
                         'Success!',
                         'Added product!',
