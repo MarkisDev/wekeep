@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:wekeep/app/core/values/constants.dart';
 import 'package:wekeep/app/data/models/user_models.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 
