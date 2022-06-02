@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
+import 'package:wekeep/app/modules/authentication/controllers/authentication_controller.dart';
 import '../controllers/home_controller.dart';
 
 class AddView extends GetView<HomeController> {
+  final authenticationController = Get.find<AuthenticationController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +81,8 @@ class AddView extends GetView<HomeController> {
                           warrantyMonths: int.parse(
                               controller.warrantyMonthsController.text),
                           notes: controller.notesController.text);
-                      await FirestoreDb.addProduct(productModel, Get.arguments);
+                      await FirestoreDb.addProduct(productModel,
+                          authenticationController.auth.currentUser!.uid);
                       Get.back();
                       Get.snackbar(
                         'Success!',

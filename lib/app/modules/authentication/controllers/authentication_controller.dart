@@ -6,8 +6,9 @@ import 'package:wekeep/app/data/models/user_models.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 
 class AuthenticationController extends GetxController {
-  final FirebaseAuth _auth = auth;
-  final GoogleSignIn _googleSignIn = googleSignIn;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
   @override
   void onInit() {
     super.onInit();
@@ -25,14 +26,14 @@ class AuthenticationController extends GetxController {
   loginWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
+          await googleSignIn.signIn();
       final GoogleSignInAuthentication? googleSignInAuthentication =
           await googleSignInAccount?.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication!.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-      final authResult = await _auth.signInWithCredential(credential);
+      final authResult = await auth.signInWithCredential(credential);
       // Firebase Auth User
       // final User? user = authResult.user;
       UserModel userModel = UserModel(
@@ -40,8 +41,8 @@ class AuthenticationController extends GetxController {
           email: googleSignInAccount.email,
           id: googleSignInAccount.id,
           photoUrl: googleSignInAccount.photoUrl.toString());
-      await FirestoreDb.addUser(userModel, _auth.currentUser!.uid);
-      await Get.toNamed('/home', arguments: _auth.currentUser!);
+      await FirestoreDb.addUser(userModel, auth.currentUser!.uid);
+      await Get.toNamed('/home');
       return;
     } catch (e) {
       throw (e);

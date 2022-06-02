@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
+import 'package:wekeep/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:wekeep/app/modules/home/views/add_view.dart';
 
 import '../controllers/home_controller.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<AuthenticationController> {
   @override
   Widget build(BuildContext context) {
     // TODO : Make auth global!!!!!!
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(() => AddView(), arguments: Get.arguments.uid);
+          Get.to(() => AddView());
         },
         child: Icon(Icons.add),
       ),
@@ -26,12 +27,12 @@ class HomeView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              'Welcome ${Get.arguments.displayName.toString()}!',
+              'Welcome ${controller.auth.currentUser!.displayName.toString()}!',
               style: TextStyle(fontSize: 21),
             ),
           ),
           GetX<HomeController>(
-              init: Get.put<HomeController>(HomeController()),
+              init: Get.find<HomeController>(),
               builder: (HomeController homeController) {
                 return Expanded(
                   child: ListView.builder(
@@ -45,7 +46,7 @@ class HomeView extends StatelessWidget {
                                 onPressed: () async {
                                   await FirestoreDb.deleteProduct(
                                       _productModel.productId.toString(),
-                                      Get.arguments.uid);
+                                      controller.auth.currentUser!.uid);
                                   Get.snackbar(
                                     'Success!',
                                     'Deleted product!',
