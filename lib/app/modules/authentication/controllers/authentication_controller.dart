@@ -41,7 +41,7 @@ class AuthenticationController extends GetxController {
           id: googleSignInAccount.id,
           photoUrl: googleSignInAccount.photoUrl.toString());
       await FirestoreDb.addUser(userModel, auth.currentUser!.uid);
-      await Get.toNamed('/home');
+      await Get.offNamed('/home');
       return;
     } catch (e) {
       throw (e);
