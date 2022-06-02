@@ -5,9 +5,10 @@ import 'package:wekeep/app/data/models/product_model.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
 import 'package:wekeep/app/modules/authentication/controllers/authentication_controller.dart';
+import 'package:wekeep/app/modules/home/controllers/add_controller.dart';
 import '../controllers/home_controller.dart';
 
-class AddView extends GetView<HomeController> {
+class AddView extends GetView<AddController> {
   final authenticationController = Get.find<AuthenticationController>();
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class AddView extends GetView<HomeController> {
                           notes: controller.notesController.text);
                       await FirestoreDb.addProduct(productModel,
                           authenticationController.auth.currentUser!.uid);
-                      Get.back();
+                      Get.offNamed('/home');
                       Get.snackbar(
                         'Success!',
                         'Added product!',
