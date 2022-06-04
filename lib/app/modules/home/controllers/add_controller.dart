@@ -34,6 +34,7 @@ class AddController extends GetxController {
     warrantyMonthsController.dispose();
   }
 
+  /// Returns selected Image path
   Future<String> selectImage() async {
     final picker = ImagePicker();
     XFile? pickedImage;
@@ -49,6 +50,7 @@ class AddController extends GetxController {
     }
   }
 
+  /// Returns upload Image url
   Future<String> uploadImage(String folderName, String imgPath) async {
     File imageFile = File(imgPath);
     String fileName = path.basename(imageFile.path);
