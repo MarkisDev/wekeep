@@ -73,15 +73,33 @@ class AddView extends GetView<AddController> {
                   }
                 },
               ),
+              Obx(() => TextFormField(
+                    readOnly: true,
+                    decoration: InputDecoration(
+                        labelText: 'Receipt Image',
+                        hintText: controller.recieptHintText.value,
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: () async {
+                            controller.recieptHintText.value = 'Image uploaded';
+                            controller.recieptImagePath.value =
+                                await controller.selectImage();
+                            print(controller.recieptImagePath.value);
+                          },
+                        )),
+                  )),
               ElevatedButton(
                   onPressed: () async {
                     if (controller.formKey.currentState!.validate()) {
+                      final recieptUrl = await controller.uploadImage(
+                          'receipts', controller.recieptImagePath.value);
                       final productModel = ProductModel(
                           name: controller.nameController.text,
                           category: controller.categoryController.text,
                           warrantyMonths: int.parse(
                               controller.warrantyMonthsController.text),
-                          notes: controller.notesController.text);
+                          notes: controller.notesController.text,
+                          receiptUrl: recieptUrl);
                       await FirestoreDb.addProduct(productModel,
                           authenticationController.auth.currentUser!.uid);
                       Get.offNamed('/home');
