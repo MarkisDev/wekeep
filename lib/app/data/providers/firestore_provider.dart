@@ -17,6 +17,7 @@ class FirestoreDb {
       'category': productModel.category,
       'warrantyMonths': productModel.warrantyMonths,
       'notes': productModel.notes,
+      'receiptUrl': productModel.receiptUrl,
     });
   }
 
