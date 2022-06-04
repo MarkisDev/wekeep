@@ -5,9 +5,13 @@ import 'package:wekeep/app/modules/authentication/controllers/authentication_con
 
 class HomeController extends GetxController {
   final productList = <ProductModel>[].obs;
-
+  final tabIndex = 0.obs;
 // Getter to get all the products from the list
   List<ProductModel> get products => productList.value;
+
+  void changeTabIndex(int index) {
+    tabIndex.value = index;
+  }
 
   @override
   void onInit() {
