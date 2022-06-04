@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ProductModel {
   String? productId;
   String? notes;
+  String? receiptUrl;
   late String name;
   late String category;
   late int warrantyMonths;
@@ -11,6 +12,7 @@ class ProductModel {
       {required this.name,
       required this.category,
       required this.warrantyMonths,
+      this.receiptUrl,
       this.notes});
 
   /// Constructor to init variables from Firebase
@@ -21,5 +23,6 @@ class ProductModel {
     category = documentSnapshot['category'];
     warrantyMonths = documentSnapshot['warrantyMonths'];
     notes = documentSnapshot['notes'];
+    receiptUrl = documentSnapshot['receiptUrl'];
   }
 }
