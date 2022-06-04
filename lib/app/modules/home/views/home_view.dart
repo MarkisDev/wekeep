@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:wekeep/app/data/models/product_model.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
 import 'package:wekeep/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:wekeep/app/modules/home/views/add_view.dart';
+import 'package:wekeep/app/modules/home/views/product_view.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -39,32 +41,38 @@ class HomeView extends GetView<AuthenticationController> {
                       itemCount: homeController.products.length,
                       itemBuilder: (BuildContext context, int index) {
                         final _productModel = homeController.products[index];
-                        return Card(
-                          child: ListTile(
-                            trailing: IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () async {
-                                  await FirestoreDb.deleteProduct(
-                                      _productModel.productId.toString(),
-                                      controller.auth.currentUser!.uid);
-                                  Get.snackbar(
-                                    'Success!',
-                                    'Deleted product!',
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    backgroundColor: Colors.red,
-                                    borderRadius: 20,
-                                    margin: EdgeInsets.all(15),
-                                    colorText: Colors.white,
-                                    duration: Duration(seconds: 4),
-                                    isDismissible: true,
-                                    dismissDirection:
-                                        DismissDirection.horizontal,
-                                    forwardAnimationCurve: Curves.easeOutBack,
-                                  );
-                                }),
-                            title: Text(_productModel.name),
-                            subtitle: Text(
-                                'Expires in ${_productModel.warrantyMonths} months'),
+                        return GestureDetector(
+                          onTap: () => {
+                            Get.to(() => ProductView(),
+                                arguments: _productModel)
+                          },
+                          child: Card(
+                            child: ListTile(
+                              trailing: IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () async {
+                                    await FirestoreDb.deleteProduct(
+                                        _productModel.productId.toString(),
+                                        controller.auth.currentUser!.uid);
+                                    Get.snackbar(
+                                      'Success!',
+                                      'Deleted product!',
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: Colors.red,
+                                      borderRadius: 20,
+                                      margin: EdgeInsets.all(15),
+                                      colorText: Colors.white,
+                                      duration: Duration(seconds: 4),
+                                      isDismissible: true,
+                                      dismissDirection:
+                                          DismissDirection.horizontal,
+                                      forwardAnimationCurve: Curves.easeOutBack,
+                                    );
+                                  }),
+                              title: Text(_productModel.name),
+                              subtitle: Text(
+                                  'Expires in ${_productModel.warrantyMonths} months'),
+                            ),
                           ),
                         );
                       }),
