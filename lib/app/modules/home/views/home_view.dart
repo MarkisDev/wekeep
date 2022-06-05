@@ -3,6 +3,7 @@ import 'package:wekeep/app/modules/home/controllers/home_controller.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:get/get.dart';
+import 'package:wekeep/app/modules/home/views/add_view.dart';
 import 'package:wekeep/app/modules/home/views/product_view.dart';
 import 'package:wekeep/app/modules/authentication/controllers/authentication_controller.dart';
 
