@@ -10,7 +10,6 @@ class AddController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
   var notesController = TextEditingController();
-  var categoryController = TextEditingController();
   var warrantyMonthsController = TextEditingController();
   final authenticationController = Get.find<AuthenticationController>();
   var recieptImagePath = ''.obs;
@@ -29,7 +28,6 @@ class AddController extends GetxController {
   @override
   void onClose() {
     nameController.dispose();
-    categoryController.dispose();
     notesController.dispose();
     warrantyMonthsController.dispose();
   }
