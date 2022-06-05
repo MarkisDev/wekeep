@@ -100,27 +100,63 @@ class ProductView extends GetView<AuthenticationController> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          Get.offNamed('/home');
+                          Get.defaultDialog(
+                              title: 'Are you sure?',
+                              content: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.red)),
+                                      onPressed: () async {
+                                        Get.back(closeOverlays: true);
+                                        Get.offNamed('/home');
+                                        await FirestoreDb.deleteProduct(
+                                            _productModel.productId.toString(),
+                                            controller.auth.currentUser!.uid);
 
-                          await FirestoreDb.deleteProduct(
-                              _productModel.productId.toString(),
-                              controller.auth.currentUser!.uid);
-
-                          Get.snackbar(
-                            'Success!',
-                            'Deleted product!',
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.red,
-                            borderRadius: 20,
-                            margin: EdgeInsets.all(15),
-                            colorText: Colors.white,
-                            duration: Duration(seconds: 4),
-                            isDismissible: true,
-                            dismissDirection: DismissDirection.horizontal,
-                            forwardAnimationCurve: Curves.easeOutBack,
-                          );
+                                        Get.snackbar(
+                                          'Success!',
+                                          'Deleted product!',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: Colors.red,
+                                          borderRadius: 20,
+                                          margin: EdgeInsets.all(15),
+                                          colorText: Colors.white,
+                                          duration: Duration(seconds: 4),
+                                          isDismissible: true,
+                                          dismissDirection:
+                                              DismissDirection.horizontal,
+                                          forwardAnimationCurve:
+                                              Curves.easeOutBack,
+                                        );
+                                      },
+                                      child: Text('Yes')),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      child: Text('Cancel'))
+                                ],
+                              ));
                         },
                         child: Text('Delete'),
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.yellow),
+                        ),
+                        onPressed: () {
+                          Get.toNamed('/service');
+                        },
+                        child: Text(
+                          'Request Service',
+                          style: TextStyle(color: Colors.black),
+                        ),
                       ),
                     ],
                   )
