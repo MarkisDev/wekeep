@@ -6,10 +6,13 @@ import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
 import 'package:wekeep/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:wekeep/app/modules/home/controllers/add_controller.dart';
+import 'package:wekeep/app/modules/home/controllers/category_controller.dart';
 import '../controllers/home_controller.dart';
+import 'package:select_form_field/select_form_field.dart';
 
 class AddView extends GetView<AddController> {
   final authenticationController = Get.find<AuthenticationController>();
+  final categoryController = Get.find<CategoryController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,18 +52,31 @@ class AddView extends GetView<AddController> {
                   }
                 },
               ),
-              TextFormField(
-                controller: controller.categoryController,
-                decoration: const InputDecoration(labelText: 'Category'),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Category is not valid!';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+              // TextFormField(
+              //   controller: controller.categoryController,
+              //   decoration: const InputDecoration(labelText: 'Category'),
+              //   autovalidateMode: AutovalidateMode.onUserInteraction,
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Category is not valid!';
+              //     } else {
+              //       return null;
+              //     }
+              //   },
+              // ),
+              GetX<CategoryController>(
+                  init: Get.find<CategoryController>(),
+                  builder: (CategoryController categoryController) {
+                    return SelectFormField(
+                      type: SelectFormFieldType.dropdown, // or can be dialog
+                      initialValue: 'Phone',
+                      labelText: 'Category',
+                      items: categoryController.getCategories(),
+                      onChanged: (val) =>
+                          categoryController.pickedCategoryName.value = val,
+                    );
+                  }),
+
               TextFormField(
                 controller: controller.notesController,
                 decoration: const InputDecoration(labelText: 'Notes'),
@@ -95,7 +111,7 @@ class AddView extends GetView<AddController> {
                           'receipts', controller.recieptImagePath.value);
                       final productModel = ProductModel(
                           name: controller.nameController.text,
-                          category: controller.categoryController.text,
+                          category: categoryController.pickedCategoryName.value,
                           warrantyMonths: int.parse(
                               controller.warrantyMonthsController.text),
                           notes: controller.notesController.text,
