@@ -22,21 +22,12 @@ class FirestoreDb {
     });
   }
 
-  static Stream<List<ProductModel>> productStream(String uid) {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> productStream(String uid) {
     return _firebaseFirestore
         .collection('users')
         .doc(uid)
         .collection('products')
-        .snapshots()
-        .map((QuerySnapshot query) {
-      List<ProductModel> products = [];
-      for (var product in query.docs) {
-        final productModel =
-            ProductModel.fromDocumentSnapshot(documentSnapshot: product);
-        products.add(productModel);
-      }
-      return products;
-    });
+        .snapshots();
   }
 
   static deleteProduct(String documentId, String uid) {
@@ -59,21 +50,13 @@ class FirestoreDb {
   }
 
 //--------------Category Related Functions
-  static Stream<List<CategoryModel>> categoryStream(String uid) {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> categoryStream(
+      String uid) {
     return _firebaseFirestore
         .collection('users')
         .doc(uid)
         .collection('categories')
-        .snapshots()
-        .map((QuerySnapshot query) {
-      List<CategoryModel> products = [];
-      for (var product in query.docs) {
-        final productModel =
-            CategoryModel.fromDocumentSnapshot(documentSnapshot: product);
-        products.add(productModel);
-      }
-      return products;
-    });
+        .snapshots();
   }
 
   static addCategory(CategoryModel categoryModel, String uid) async {
