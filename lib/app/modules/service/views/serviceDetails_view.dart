@@ -39,7 +39,7 @@ class ServiceDetailsView extends StatelessWidget {
           )),
           ElevatedButton(
               onPressed: () {
-                Get.to(RequestView());
+                Get.to(() => RequestView());
               },
               child: Text('Send request')),
         ],

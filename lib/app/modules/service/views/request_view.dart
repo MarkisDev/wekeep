@@ -1,20 +1,78 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:wekeep/app/global_widgets/appBar.dart';
+import 'package:wekeep/app/modules/service/controllers/service_controller.dart';
 
-class RequestView extends GetView {
+class RequestView extends GetView<ServiceController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('RequestView'),
-        centerTitle: true,
-      ),
+      appBar: appBar,
       body: Center(
-        child: Text(
-          'RequestView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Make request',
+              style: TextStyle(fontSize: 21),
+            ),
+          ),
+          Form(
+              key: controller.formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: controller.nameController,
+                      decoration: const InputDecoration(labelText: 'Name'),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Name is not valid!';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    TextFormField(
+                      controller: controller.emailController,
+                      decoration: const InputDecoration(labelText: 'Email'),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email is not valid!';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    TextFormField(
+                      minLines: 3,
+                      maxLines: 10,
+                      keyboardType: TextInputType.multiline,
+                      controller: controller.messageController,
+                      decoration: const InputDecoration(labelText: 'Message'),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Message is not valid!';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    ElevatedButton(
+                        onPressed: () async {
+                          await controller.sendEmail();
+                          Get.offNamed('/service');
+                        },
+                        child: Text('Send'))
+                  ],
+                ),
+              )),
+        ]),
       ),
     );
   }
