@@ -5,12 +5,14 @@ class ProductModel {
   String? notes;
   String? receiptUrl;
   late String name;
-  late String category;
+  late String categoryId;
+  late String categoryName;
   late int warrantyMonths;
 
   ProductModel(
       {required this.name,
-      required this.category,
+      required this.categoryName,
+      required this.categoryId,
       required this.warrantyMonths,
       this.receiptUrl,
       this.notes});
@@ -20,7 +22,8 @@ class ProductModel {
       {required DocumentSnapshot documentSnapshot}) {
     productId = documentSnapshot.id;
     name = documentSnapshot['name'];
-    category = documentSnapshot['category'];
+    categoryId = documentSnapshot['categoryId'];
+    categoryName = documentSnapshot['categoryName'];
     warrantyMonths = documentSnapshot['warrantyMonths'];
     notes = documentSnapshot['notes'];
     receiptUrl = documentSnapshot['receiptUrl'];
