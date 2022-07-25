@@ -86,6 +86,13 @@ class ServiceView extends GetView<ServiceController> {
       body: Center(
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Nearest Service Providers',
+                style: TextStyle(fontSize: 21),
+              ),
+            ),
             Obx(() {
               return Expanded(
                 child: ListView.builder(
@@ -102,8 +109,8 @@ class ServiceView extends GetView<ServiceController> {
                           child: Card(
                             child: ListTile(
                               title: Text(_serviceProviderModel.name),
-                              subtitle:
-                                  Text(_serviceProviderModel.howFar.toString()),
+                              subtitle: Text(
+                                  "${_serviceProviderModel.howFar.toString()} km away!"),
                               trailing: Icon(Icons.directions),
                             ),
                           ),
