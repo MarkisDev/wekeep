@@ -12,7 +12,7 @@ class CategoriesController extends GetxController {
 
   final categoryList = <CategoryModel>[].obs;
   final pickedColor = Color(0xffffffff).obs;
-  final pickedCategoryName = ''.obs;
+  final pickedCategoryId = ''.obs;
   var nameController = TextEditingController();
 
   List<CategoryModel> get categories => categoryList.value;
@@ -31,7 +31,7 @@ class CategoriesController extends GetxController {
   List<Map<String, dynamic>> getCategories() {
     List<Map<String, dynamic>> newMap = [];
     for (var item in categoryList) {
-      newMap.add({'value': item.name, 'label': item.name});
+      newMap.add({'value': item.categoryId, 'label': item.name});
     }
     return newMap;
   }
