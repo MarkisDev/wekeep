@@ -44,7 +44,7 @@ class ServiceDetailsView extends GetView<ServiceController> {
           ElevatedButton(
               onPressed: () async {
                 controller.center.value = await controller.getLocation();
-                Get.to(() => RequestView());
+                Get.to(() => RequestView(), arguments: serviceModel);
               },
               child: Text('Send request')),
         ],
