@@ -12,10 +12,11 @@ class ServiceRepository {
       var x = [];
       dL.forEach((DocumentSnapshot document) {
         var loc = document['location']['geopoint'];
-        GeoFirePoint pos =
-            geo.point(latitude: loc.latitude, longitude: loc.longitude);
-        double k = pos.kmDistance(lat: center.latitude, lng: center.longitude);
+        // GeoFirePoint pos =
+        //     geo.point(latitude: loc.latitude, longitude: loc.longitude);
+        double k = center.kmDistance(lat: loc.latitude, lng: loc.longitude);
         ServiceProvider prov = ServiceProvider(
+            coords: loc,
             name: document['shopName'],
             howFar: k,
             imgUrl:
