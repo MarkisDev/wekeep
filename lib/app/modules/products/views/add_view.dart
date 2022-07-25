@@ -67,11 +67,11 @@ class AddView extends GetView<ProductsController> {
                   builder: (CategoriesController categoriesController) {
                     return SelectFormField(
                       type: SelectFormFieldType.dropdown, // or can be dialog
-                      initialValue: 'Phone',
+                      controller: controller.categoryController,
                       labelText: 'Category',
                       items: categoriesController.getCategories(),
                       onChanged: (val) =>
-                          categoriesController.pickedCategoryName.value = val,
+                          categoriesController.pickedCategoryId.value = val,
                     );
                   }),
 
@@ -109,8 +109,9 @@ class AddView extends GetView<ProductsController> {
                           'receipts', controller.recieptImagePath.value);
                       final productModel = ProductModel(
                           name: controller.nameController.text,
-                          category:
-                              categoriesController.pickedCategoryName.value,
+                          categoryId:
+                              categoriesController.pickedCategoryId.value,
+                          categoryName: controller.categoryController.text,
                           warrantyMonths: int.parse(
                               controller.warrantyMonthsController.text),
                           notes: controller.notesController.text,
