@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:wekeep/app/data/models/product_model.dart';
+import 'package:wekeep/app/data/repositories/service_repository.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
 import 'package:wekeep/app/modules/authentication/controllers/authentication_controller.dart';
+import 'package:wekeep/app/modules/service/controllers/service_controller.dart';
 
 class ProductDetailsView extends GetView<AuthenticationController> {
-  final _productModel = Get.arguments;
+  final ProductModel _productModel = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +22,7 @@ class ProductDetailsView extends GetView<AuthenticationController> {
                 child: Container(
                   padding: EdgeInsets.all(10.0),
                   child: Image.network(
-                    _productModel.receiptUrl,
+                    _productModel.receiptUrl.toString(),
                     fit: BoxFit.fitWidth,
                   ),
                   height: 300,
@@ -52,7 +55,7 @@ class ProductDetailsView extends GetView<AuthenticationController> {
                               style: TextStyle(fontSize: 21),
                             ),
                             Text(
-                              '${_productModel.category}',
+                              '${_productModel.categoryName}',
                               style: TextStyle(fontSize: 18),
                             )
                           ],
@@ -150,7 +153,11 @@ class ProductDetailsView extends GetView<AuthenticationController> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.yellow),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
+                          final serviceController = Get.put(ServiceController(
+                              repository: ServiceRepository()));
+                          serviceController.center.value =
+                              await serviceController.getLocation();
                           Get.toNamed('/service');
                         },
                         child: Text(
