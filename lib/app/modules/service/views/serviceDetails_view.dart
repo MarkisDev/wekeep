@@ -32,8 +32,11 @@ class ServiceDetailsView extends GetView<ServiceController> {
                   title: Center(
                       child: Text("${serviceModel.howFar} from your location")),
                   trailing: Icon(Icons.directions),
-                  onTap: () => MapsLauncher.launchCoordinates(
-                      12.994266576691665, 77.67270786721555))),
+                  onTap: () {
+                    MapsLauncher.launchCoordinates(serviceModel.coords.latitude,
+                        serviceModel.coords.longitude);
+                    print(serviceModel.coords.longitude);
+                  })),
           Card(
               child: ListTile(
             title: Center(child: Text("Avg price  - \u{20B9}1000")),
