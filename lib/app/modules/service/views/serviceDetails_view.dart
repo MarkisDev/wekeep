@@ -3,9 +3,10 @@ import 'package:wekeep/app/data/models/serviceProvider_model.dart';
 import 'package:wekeep/app/global_widgets/appBar.dart';
 import 'package:get/get.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:wekeep/app/modules/service/controllers/service_controller.dart';
 import 'package:wekeep/app/modules/service/views/request_view.dart';
 
-class ServiceDetailsView extends StatelessWidget {
+class ServiceDetailsView extends GetView<ServiceController> {
   @override
   Widget build(BuildContext context) {
     ServiceProvider serviceModel = Get.arguments;
@@ -38,7 +39,8 @@ class ServiceDetailsView extends StatelessWidget {
             title: Center(child: Text("Avg price  - \u{20B9}1000")),
           )),
           ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                controller.center.value = await controller.getLocation();
                 Get.to(() => RequestView());
               },
               child: Text('Send request')),
