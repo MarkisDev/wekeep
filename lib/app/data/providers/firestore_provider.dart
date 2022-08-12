@@ -60,6 +60,7 @@ class FirestoreDb {
       'email': userModel.email,
       'id': userModel.id,
       'photoUrl': userModel.photoUrl,
+      'token': userModel.token
     });
   }
 
@@ -118,7 +119,9 @@ class FirestoreDb {
         .add({
       'name': requestModel.name,
       'desc': requestModel.desc,
-      'img': requestModel.img
+      'img': requestModel.img,
+      'token': requestModel.token,
+      'uid': requestModel.uid,
     });
   }
 }
