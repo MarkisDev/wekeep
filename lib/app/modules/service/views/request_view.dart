@@ -73,7 +73,9 @@ class RequestView extends GetView<ServiceController> {
                               img:
                                   'https://lh3.googleusercontent.com/a/AATXAJwn7u2KvmoKJnNbsWclKbLCJEqDcGhI-iCq0mU-9Q=s96-c',
                               name: controller.nameController.text,
-                              desc: controller.messageController.text);
+                              desc: controller.messageController.text,
+                              token: controller.homeController.userModel.token,
+                              uid: controller.homeController.userModel.id);
                           controller.repository
                               .addRequest(requestModel, serviceModel.uid);
                           Get.snackbar(
