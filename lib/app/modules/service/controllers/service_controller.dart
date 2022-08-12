@@ -1,16 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:wekeep/app/data/models/serviceProvider_model.dart';
 import 'package:wekeep/app/data/repositories/service_repository.dart';
+import 'package:wekeep/app/modules/home/controllers/home_controller.dart';
 
 class ServiceController extends GetxController {
   final ServiceRepository repository;
   ServiceController({required this.repository});
 
+  late final HomeController homeController;
   final geo = Geoflutterfire();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
@@ -20,13 +19,6 @@ class ServiceController extends GetxController {
   final center =
       Geoflutterfire().point(latitude: 12.9633978, longitude: 77.58550823).obs;
   get shops => shopsList.value;
-
-  Future<void> sendEmail() async {
-    await FlutterEmailSender.send(Email(
-        body: '${emailController.text}\n\n${messageController.text}',
-        subject: 'Service Request by ${nameController.text}',
-        recipients: ['rir20cs@cmrit.com']));
-  }
 
   getLocation() async {
     bool serviceEnabled;
@@ -61,6 +53,7 @@ class ServiceController extends GetxController {
 
   @override
   void onInit() {
+    homeController = Get.find<HomeController>();
     shopsList.bindStream(repository.getShops(center.value));
   }
 
