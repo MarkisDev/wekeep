@@ -2,34 +2,36 @@ name: wekeep
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=2.16.2 <3.0.0'
+environment:
+  sdk: ">=2.16.2 <3.0.0"
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
   get: 4.6.5
-  google_sign_in: 5.3.2
-  firebase_core: 1.17.1
-  firebase_auth: 3.3.19
-  cloud_firestore: 3.1.17
-  firebase_storage: 10.2.17
-  file_picker: 4.6.1
+  google_sign_in: ^5.4.1
+  firebase_core: ^1.20.1
+  firebase_auth: ^3.6.3
+  cloud_firestore: ^3.4.4
+  firebase_storage: ^10.3.5
+  file_picker: ^5.0.1
   image_picker: 0.8.5+3
   flutter_colorpicker: 1.0.3
   select_form_field: 2.2.0
   maps_launcher: 2.0.1
-  url_launcher: 6.1.2
+  url_launcher: ^6.1.5
   flutter_email_sender: 5.1.0
   geoflutterfire: 3.0.3
   geolocator: 9.0.1
-  flutter: 
+  firebase_messaging: ^12.0.2
+  flutter_local_notifications: ^9.7.0
+  http: ^0.13.5
+  flutter:
     sdk: flutter
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^1.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
+flutter:
   uses-material-design: true
-

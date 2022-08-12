@@ -27,6 +27,10 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    lintOptions { 
+    checkReleaseBuilds false
+}
+
     compileSdkVersion 33
 
     compileOptions {
@@ -67,5 +71,8 @@ flutter {
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.0.2')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+     implementation platform('com.google.firebase:firebase-bom:26.5.0')
+ implementation 'com.google.firebase:firebase-messaging'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+apply plugin: 'com.google.gms.google-services'
