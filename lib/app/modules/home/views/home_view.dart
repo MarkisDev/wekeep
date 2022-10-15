@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:getwidget/components/avatar/gf_avatar.dart';
 
-import 'package:wekeep/app/global_widgets/appBar.dart';
+import 'package:wekeep/app/ui/widgets/appBar.dart';
 import 'package:wekeep/app/modules/categories/views/categories_view.dart';
 import 'package:wekeep/app/modules/products/views/add_view.dart';
 import 'package:wekeep/app/modules/products/views/products_view.dart';
+import 'package:wekeep/app/ui/theme/color_theme.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -14,6 +16,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     // TODO : Make auth global!!!!!!
     return Scaffold(
+        // backgroundColor: kprimaryColor,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             controller.tabIndex.value == 0
@@ -32,15 +35,20 @@ class HomeView extends GetView<HomeController> {
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.business),
+                  icon: Icon(Icons.menu_open_outlined),
                   label: 'Category',
                 ),
               ],
-              selectedItemColor: Colors.amber[800],
+              selectedItemColor: Colors.black,
               currentIndex: controller.tabIndex.value,
               onTap: controller.changeTabIndex,
             )),
-        appBar: appBar,
+        appBar: AppBar(
+          // title: Text('Home'),
+          centerTitle: true,
+          backgroundColor: kprimaryColor,
+          elevation: 0,
+        ),
         body: Obx(
           () => IndexedStack(
             index: controller.tabIndex.value,
