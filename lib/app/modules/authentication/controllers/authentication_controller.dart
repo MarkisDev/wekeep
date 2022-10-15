@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:wekeep/app/data/models/user_models.dart';
 import 'package:wekeep/app/data/providers/firestore_provider.dart';
+import 'package:wekeep/app/modules/authentication/views/authentication_view.dart';
+import 'package:wekeep/app/routes/app_pages.dart';
 
 class AuthenticationController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -55,6 +57,6 @@ class AuthenticationController extends GetxController {
   /// Logs user out
   Future<void> logoutGoogle() async {
     await googleSignIn.signOut();
-    Get.back();
+    Get.offAll(AuthenticationView());
   }
 }
