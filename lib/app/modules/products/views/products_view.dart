@@ -53,7 +53,9 @@ class ProductsView extends GetView<AuthenticationController> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           GFButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await controller.logoutGoogle();
+                            },
                             icon: Icon(Icons.logout),
                             color: Colors.white,
                             text: ('Logout'),
@@ -88,138 +90,144 @@ class ProductsView extends GetView<AuthenticationController> {
                               productsController.products[index];
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(12, 0, 12, 10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
-                                      spreadRadius: 0.2,
-                                      blurRadius: 12,
-                                      offset: Offset(0, 7),
-                                    )
-                                  ]),
-                              child: GFListTile(
-                                  onTap: () {
-                                    Get.to(() => ProductDetailsView(),
-                                        arguments: _productModel);
-                                  },
-                                  icon: GestureDetector(
-                                    onTap: (() {
-                                      Get.defaultDialog(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          titlePadding:
-                                              EdgeInsets.only(top: 10),
-                                          title: '',
-                                          content: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                child: SvgPicture.asset(
-                                                    'assets/images/delete.svg'),
-                                                height: height * 0.2,
-                                                width: width * 0.5,
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 18.0),
-                                                child: Text(
-                                                  'All the content related to your product will be lost forever!',
-                                                  style:
-                                                      TextStyle(fontSize: 18),
+                            child: Center(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.4),
+                                        spreadRadius: 0.2,
+                                        blurRadius: 12,
+                                        offset: Offset(0, 7),
+                                      )
+                                    ]),
+                                child: GFListTile(
+                                    onTap: () {
+                                      Get.to(() => ProductDetailsView(),
+                                          arguments: _productModel);
+                                    },
+                                    icon: GestureDetector(
+                                      onTap: (() {
+                                        Get.defaultDialog(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 20),
+                                            titlePadding:
+                                                EdgeInsets.only(top: 10),
+                                            title: '',
+                                            content: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/delete.svg'),
+                                                  height: height * 0.2,
+                                                  width: width * 0.5,
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 12.0),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    ElevatedButton(
-                                                        style: ButtonStyle(
-                                                            backgroundColor:
-                                                                MaterialStateProperty
-                                                                    .all(Colors
-                                                                        .red)),
-                                                        onPressed: () async {
-                                                          Get.back(
-                                                              closeOverlays:
-                                                                  true);
-                                                          await productsController
-                                                              .repository
-                                                              .deleteProduct(
-                                                                  _productModel
-                                                                      .productId
-                                                                      .toString(),
-                                                                  controller
-                                                                      .auth
-                                                                      .currentUser!
-                                                                      .uid);
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 18.0),
+                                                  child: Text(
+                                                    'All the content related to your product will be lost forever!',
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 12.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      ElevatedButton(
+                                                          style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty
+                                                                      .all(Colors
+                                                                          .red)),
+                                                          onPressed: () async {
+                                                            Get.back(
+                                                                closeOverlays:
+                                                                    true);
+                                                            await productsController
+                                                                .repository
+                                                                .deleteProduct(
+                                                                    _productModel,
+                                                                    controller
+                                                                        .auth
+                                                                        .currentUser!
+                                                                        .uid);
 
-                                                          Get.snackbar(
-                                                            'Success!',
-                                                            'Deleted product!',
-                                                            snackPosition:
-                                                                SnackPosition
-                                                                    .BOTTOM,
-                                                            backgroundColor:
-                                                                Colors.red,
-                                                            borderRadius: 20,
-                                                            margin:
-                                                                EdgeInsets.all(
-                                                                    15),
-                                                            colorText:
-                                                                Colors.white,
-                                                            duration: Duration(
-                                                                seconds: 4),
-                                                            isDismissible: true,
-                                                            dismissDirection:
-                                                                DismissDirection
-                                                                    .horizontal,
-                                                            forwardAnimationCurve:
-                                                                Curves
-                                                                    .easeOutBack,
-                                                          );
-                                                        },
-                                                        child: Text('Delete')),
-                                                    ElevatedButton(
-                                                        onPressed: () {
-                                                          Get.back();
-                                                        },
-                                                        style: ButtonStyle(
-                                                            backgroundColor:
-                                                                MaterialStateProperty
-                                                                    .all(
-                                                                        kprimaryColor)),
-                                                        child: Text('Cancel'))
-                                                  ],
+                                                            Get.snackbar(
+                                                              'Success!',
+                                                              'Deleted product!',
+                                                              snackPosition:
+                                                                  SnackPosition
+                                                                      .BOTTOM,
+                                                              backgroundColor:
+                                                                  Colors.red,
+                                                              borderRadius: 20,
+                                                              margin: EdgeInsets
+                                                                  .all(15),
+                                                              colorText:
+                                                                  Colors.white,
+                                                              duration:
+                                                                  Duration(
+                                                                      seconds:
+                                                                          4),
+                                                              isDismissible:
+                                                                  true,
+                                                              dismissDirection:
+                                                                  DismissDirection
+                                                                      .horizontal,
+                                                              forwardAnimationCurve:
+                                                                  Curves
+                                                                      .easeOutBack,
+                                                            );
+                                                          },
+                                                          child:
+                                                              Text('Delete')),
+                                                      ElevatedButton(
+                                                          onPressed: () {
+                                                            Get.back();
+                                                          },
+                                                          style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty
+                                                                      .all(
+                                                                          kprimaryColor)),
+                                                          child: Text('Cancel'))
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ));
-                                    }),
-                                    child: Icon(
-                                      Icons.delete_outline,
-                                      size: 28,
+                                              ],
+                                            ));
+                                      }),
+                                      child: Icon(
+                                        Icons.delete_outline,
+                                        size: 28,
+                                      ),
                                     ),
-                                  ),
-                                  enabled: true,
-                                  titleText: _productModel.name,
-                                  subTitleText:
-                                      'Expires in ${_productModel.warrantyMonths} months',
-                                  avatar: GFAvatar(
-                                    backgroundImage: NetworkImage(
-                                      _productModel.receiptUrl.toString(),
-                                    ),
-                                    shape: GFAvatarShape.standard,
-                                  )),
+                                    enabled: true,
+                                    titleText: _productModel.name,
+                                    subTitleText:
+                                        'Expires in ${_productModel.warrantyMonths} months',
+                                    avatar: GFAvatar(
+                                      backgroundImage: NetworkImage(
+                                        _productModel.receiptUrl.toString(),
+                                      ),
+                                      shape: GFAvatarShape.standard,
+                                    )),
+                              ),
                             ),
                           );
                         }),
