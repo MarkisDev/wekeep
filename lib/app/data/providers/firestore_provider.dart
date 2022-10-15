@@ -44,13 +44,22 @@ class FirestoreDb {
         .snapshots();
   }
 
-  static deleteProduct(String documentId, String uid) {
+  static deleteProduct(ProductModel product, String uid) async {
     _firebaseFirestore
         .collection('users')
         .doc(uid)
         .collection('products')
-        .doc(documentId)
+        .doc(product.productId.toString())
         .delete();
+
+    await _firebaseFirestore
+        .collection('users')
+        .doc(uid)
+        .collection('categories')
+        .doc(product.categoryId)
+        .update({
+      'count': FieldValue.increment(-1),
+    });
   }
 
   //------------User Related Functions----------
