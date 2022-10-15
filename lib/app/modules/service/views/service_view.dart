@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:wekeep/app/modules/service/views/serviceDetails_view.dart';
+import 'package:wekeep/app/ui/widgets/appBar.dart';
 
 import '../controllers/service_controller.dart';
 
 class ServiceView extends GetView<ServiceController> {
   @override
   Widget build(BuildContext context) {
+    var height = Get.height;
+    var width = Get.width;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('ServiceView'),
-        centerTitle: true,
-      ),
+      appBar: getAppBar(''),
       // body: Center(
       //     child: Column(
       //   children: [
@@ -83,44 +85,76 @@ class ServiceView extends GetView<ServiceController> {
       //     ),
       //   ],
       // )),
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Nearest Service Providers',
-                style: TextStyle(fontSize: 21),
-              ),
+      body: Column(
+        children: [
+          Container(
+            child: SvgPicture.asset('assets/images/service.svg'),
+            height: height * 0.25,
+            width: width * 0.5,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Nearest Service Providers',
+              style: TextStyle(fontSize: 21),
             ),
-            Obx(() {
-              return Expanded(
-                child: ListView.builder(
-                    itemCount: controller.shops.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final _serviceProviderModel = controller.shops[index];
-                      return GestureDetector(
-                        onTap: () => {},
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(ServiceDetailsView(),
-                                arguments: _serviceProviderModel);
-                          },
-                          child: Card(
-                            child: ListTile(
-                              title: Text(_serviceProviderModel.name),
-                              subtitle: Text(
-                                  "${_serviceProviderModel.howFar.toString()} km away!"),
-                              trailing: Icon(Icons.directions),
+          ),
+          Obx(() {
+            return Expanded(
+              child: ListView.builder(
+                  itemCount: controller.shops.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final _serviceProviderModel = controller.shops[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.3),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(ServiceDetailsView(),
+                              arguments: _serviceProviderModel);
+                        },
+                        child: Container(
+                          decoration:
+                              BoxDecoration(color: Colors.white, boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              spreadRadius: 0.2,
+                              blurRadius: 12,
+                              offset: Offset(0, 7),
+                            )
+                          ]),
+                          child: GFListTile(
+                            icon: IconButton(
+                              icon: Icon(Icons.directions),
+                              onPressed: () {},
                             ),
+                            titleText: _serviceProviderModel.name,
+                            subTitleText:
+                                "${_serviceProviderModel.howFar.toString()} km away!",
                           ),
                         ),
-                      );
-                    }),
-              );
-            }),
-          ],
-        ),
+                      ),
+                    );
+                    // return GestureDetector(
+                    //   onTap: () => {},
+                    //   child: GestureDetector(
+                    //     onTap: () {
+                    //       Get.to(ServiceDetailsView(),
+                    //           arguments: _serviceProviderModel);
+                    //     },
+                    //     child: Card(
+                    //       child: ListTile(
+                    //         title: Text(_serviceProviderModel.name),
+                    //         subtitle: Text(
+                    //             "${_serviceProviderModel.howFar.toString()} km away!"),
+                    //         trailing: Icon(Icons.directions),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // );
+                  }),
+            );
+          }),
+        ],
       ),
     );
   }
