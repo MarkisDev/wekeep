@@ -65,14 +65,22 @@ class AddView extends GetView<ProductsController> {
               GetX<CategoriesController>(
                   init: Get.find<CategoriesController>(),
                   builder: (CategoriesController categoriesController) {
+                    List<Map<String, dynamic>> categoriesMap =
+                        categoriesController.getCategories();
                     return SelectFormField(
-                      type: SelectFormFieldType.dropdown, // or can be dialog
-                      controller: controller.categoryController,
-                      labelText: 'Category',
-                      items: categoriesController.getCategories(),
-                      onChanged: (val) =>
-                          categoriesController.pickedCategoryId.value = val,
-                    );
+                        type: SelectFormFieldType.dropdown, // or can be dialog
+                        labelText: 'Category',
+                        initialValue: 'Choose a category!',
+                        items: categoriesMap,
+                        onChanged: (val) {
+                          for (final m in categoriesMap) {
+                            if (m['value'] == val) {
+                              categoriesController.pickedCategoryName.value =
+                                  m['label'];
+                            }
+                          }
+                          categoriesController.pickedCategoryId.value = val;
+                        });
                   }),
 
               TextFormField(
@@ -111,7 +119,8 @@ class AddView extends GetView<ProductsController> {
                           name: controller.nameController.text,
                           categoryId:
                               categoriesController.pickedCategoryId.value,
-                          categoryName: controller.categoryController.text,
+                          categoryName:
+                              categoriesController.pickedCategoryName.value,
                           warrantyMonths: int.parse(
                               controller.warrantyMonthsController.text),
                           notes: controller.notesController.text,

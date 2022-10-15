@@ -20,8 +20,10 @@ class AuthenticationView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            FlatButton(
-              color: Colors.blue,
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.blue,
+              ),
               onPressed: () => controller.loginWithGoogle(),
               child: Center(
                   child: Text(
