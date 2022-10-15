@@ -21,7 +21,7 @@ class ProductRepository {
     });
   }
 
-  deleteProduct(String documentId, String uid) async {
-    await FirestoreDb.deleteProduct(documentId, uid);
+  deleteProduct(ProductModel product, String uid) async {
+    await FirestoreDb.deleteProduct(product, uid);
   }
 }
