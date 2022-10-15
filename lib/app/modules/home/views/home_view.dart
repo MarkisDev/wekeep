@@ -18,6 +18,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
         // backgroundColor: kprimaryColor,
         floatingActionButton: FloatingActionButton(
+          backgroundColor: kprimaryColor,
           onPressed: () {
             controller.tabIndex.value == 0
                 ? Get.to(() => AddView())
