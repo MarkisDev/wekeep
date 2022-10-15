@@ -4,6 +4,7 @@ class CategoryModel {
   late String color;
   String? categoryId;
   String? name;
+  late int count;
 
   CategoryModel(this.color, this.name);
 
@@ -12,6 +13,7 @@ class CategoryModel {
       {required DocumentSnapshot documentSnapshot}) {
     color = documentSnapshot['color'];
     name = documentSnapshot['name'];
+    count = documentSnapshot['count'];
     categoryId = documentSnapshot.id;
   }
 }
