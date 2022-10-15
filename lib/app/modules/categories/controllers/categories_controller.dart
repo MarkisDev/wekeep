@@ -13,6 +13,7 @@ class CategoriesController extends GetxController {
   final categoryList = <CategoryModel>[].obs;
   final pickedColor = Color(0xffffffff).obs;
   final pickedCategoryId = ''.obs;
+  final pickedCategoryName = ''.obs;
   var nameController = TextEditingController();
 
   List<CategoryModel> get categories => categoryList.value;

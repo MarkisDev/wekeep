@@ -16,7 +16,6 @@ class ProductsController extends GetxController {
   var nameController = TextEditingController();
   var notesController = TextEditingController();
   var warrantyMonthsController = TextEditingController();
-  var categoryController = TextEditingController();
   final authenticationController = Get.find<AuthenticationController>();
   var recieptImagePath = ''.obs;
   final recieptHintText = ''.obs;
