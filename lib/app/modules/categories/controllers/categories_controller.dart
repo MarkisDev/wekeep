@@ -11,7 +11,8 @@ class CategoriesController extends GetxController {
   CategoriesController({required this.repository});
 
   final categoryList = <CategoryModel>[].obs;
-  final pickedColor = Color(0xffffffff).obs;
+  final pickedColor = Color(0x1d1d1d).obs;
+  final categoryChanged = false.obs;
   final pickedCategoryId = ''.obs;
   final pickedCategoryName = ''.obs;
   var nameController = TextEditingController();
@@ -39,6 +40,7 @@ class CategoriesController extends GetxController {
 
   void changeColor(Color color) {
     pickedColor.value = color;
+    categoryChanged.value = true;
   }
 
   final count = 0.obs;
