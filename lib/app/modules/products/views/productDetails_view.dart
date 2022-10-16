@@ -37,7 +37,8 @@ class ProductDetailsView extends GetView<AuthenticationController> {
                             fit: BoxFit.cover,
                             alignment: FractionalOffset.topCenter,
                             image: new NetworkImage(
-                                _productModel.receiptUrl.toString()),
+                              _productModel.receiptUrl.toString(),
+                            ),
                           ),
                         ),
                       )),
