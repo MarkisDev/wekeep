@@ -23,7 +23,7 @@ class HomeView extends GetView<HomeController> {
             controller.tabIndex.value == 0
                 ? Get.to(() => AddView())
                 : Get.defaultDialog(
-                    title: 'Add category',
+                    title: '',
                     content: categoryForm(),
                   );
           },
