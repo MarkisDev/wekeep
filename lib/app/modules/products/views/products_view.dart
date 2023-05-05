@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:wekeep/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:wekeep/app/modules/products/controllers/products_controller.dart';
@@ -12,6 +11,7 @@ import 'package:wekeep/app/ui/theme/color_theme.dart';
 class ProductsView extends GetView<AuthenticationController> {
   @override
   Widget build(BuildContext context) {
+    print(controller.userModel.token);
     var height = Get.height;
     var width = Get.width;
     return Center(
@@ -30,26 +30,24 @@ class ProductsView extends GetView<AuthenticationController> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "Welcome ${controller.auth.currentUser!.displayName!.split(' ')[0].toString()}!",
-                          style: TextStyle(
-                              fontSize: 24,
-                              // fontWeight: FontWeight,
-                              color: Colors.white),
-                        ),
-                        GFAvatar(
-                          shape: GFAvatarShape.standard,
-                          backgroundImage: NetworkImage(
-                              controller.auth.currentUser!.photoURL.toString()),
-                          size: 30,
-                        ),
-                      ],
+                    GFAvatar(
+                      shape: GFAvatarShape.standard,
+                      backgroundImage: NetworkImage(
+                          controller.auth.currentUser!.photoURL.toString()),
+                      size: 30,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 15.0),
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        "Welcome ${controller.auth.currentUser!.displayName!.split(' ')[0].toString()}!",
+                        style: TextStyle(
+                            fontSize: 24,
+                            // fontWeight: FontWeight,
+                            color: Colors.white),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -177,9 +175,6 @@ class ProductsView extends GetView<AuthenticationController> {
                                                                             .red)),
                                                                 onPressed:
                                                                     () async {
-                                                                  Get.back(
-                                                                      closeOverlays:
-                                                                          true);
                                                                   await productsController
                                                                       .repository
                                                                       .deleteProduct(
@@ -252,7 +247,7 @@ class ProductsView extends GetView<AuthenticationController> {
                                             // ),
                                             backgroundImage:
                                                 CachedNetworkImageProvider(
-                                              _productModel.receiptUrl
+                                              _productModel.productUrl
                                                   .toString(),
                                             ) as ImageProvider,
                                             shape: GFAvatarShape.standard,
