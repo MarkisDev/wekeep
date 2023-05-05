@@ -21,11 +21,8 @@ class HomeView extends GetView<HomeController> {
           backgroundColor: kprimaryColor,
           onPressed: () {
             controller.tabIndex.value == 0
-                ? Get.to(() => AddView())
-                : Get.defaultDialog(
-                    title: '',
-                    content: categoryForm(),
-                  );
+                ? Get.to(() => AddView(), arguments: Get.arguments)
+                : categoryForm();
           },
           child: Icon(Icons.add),
         ),
