@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:wekeep/app/data/models/user_models.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class HomeController extends GetxController {
   UserModel userModel = Get.arguments;
@@ -93,6 +94,32 @@ class HomeController extends GetxController {
           ),
         );
       }
+    });
+    var channel = const AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      importance: Importance.high,
+      enableVibration: true,
+    );
+    OneSignal.shared.setNotificationWillShowInForegroundHandler(
+        (OSNotificationReceivedEvent event) {
+      // Will be called whenever a notification is received in foreground
+      flutterLocalNotificationsPlugin.show(
+        event.notification.hashCode,
+        event.notification.title,
+        event.notification.body,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            // TODO add a proper drawable resource to android, for now using
+            //      one that already exists in example app.
+            icon: 'launch_background',
+          ),
+        ),
+      );
+      // Display Notification, pass null param for not displaying the notification
+      event.complete(event.notification);
     });
   }
 
