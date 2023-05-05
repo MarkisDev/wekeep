@@ -30,23 +30,32 @@ class AuthenticationView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              children: [
-                Text(
-                  'WeKeep',
-                  style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                Text(
-                  'Quality service at your doorstep!',
-                  style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white),
-                ),
-              ],
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    'WeKeep',
+                    style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  Container(
+                    width: width,
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: SizedBox(
+                          child: Text(
+                            'Quality service at your doorstep!',
+                            style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white),
+                          ),
+                        )),
+                  ),
+                ],
+              ),
             ),
             Center(
               child: Container(
