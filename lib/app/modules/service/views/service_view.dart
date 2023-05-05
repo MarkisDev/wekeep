@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
+import 'package:maps_launcher/maps_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:wekeep/app/modules/service/views/serviceDetails_view.dart';
 import 'package:wekeep/app/ui/widgets/appBar.dart';
 
@@ -123,13 +126,45 @@ class ServiceView extends GetView<ServiceController> {
                             )
                           ]),
                           child: GFListTile(
-                            icon: IconButton(
-                              icon: Icon(Icons.directions),
-                              onPressed: () {},
-                            ),
+                            icon: Wrap(children: [
+                              IconButton(
+                                icon: Icon(Icons.phone),
+                                onPressed: () async {
+                                  var url =
+                                      "tel:${_serviceProviderModel.phoneNum}";
+                                  if (await canLaunchUrlString(url)) {
+                                    await launchUrlString(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.directions),
+                                onPressed: () async {
+                                  MapsLauncher.launchCoordinates(
+                                      _serviceProviderModel.coords.latitude,
+                                      _serviceProviderModel.coords.longitude);
+                                },
+                              )
+                            ]),
                             titleText: _serviceProviderModel.name,
-                            subTitleText:
-                                "${_serviceProviderModel.howFar.toString()} km away!",
+                            subTitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: Text(
+                                        "${_serviceProviderModel.address}"),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: Text(
+                                        "${_serviceProviderModel.howFar.toString()} km away!"),
+                                  )
+                                ]),
+                            // subTitleText:
+                            //     "${_serviceProviderModel.howFar.toString()} km away!",
                           ),
                         ),
                       ),
