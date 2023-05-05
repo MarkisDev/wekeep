@@ -37,7 +37,7 @@ class ProductDetailsView extends GetView<AuthenticationController> {
                             fit: BoxFit.cover,
                             alignment: FractionalOffset.topCenter,
                             image: new NetworkImage(
-                              _productModel.receiptUrl.toString(),
+                              _productModel.productUrl.toString(),
                             ),
                           ),
                         ),
@@ -113,6 +113,14 @@ class ProductDetailsView extends GetView<AuthenticationController> {
                       GFListTile(
                         titleText: 'Category Name',
                         subTitleText: _productModel.categoryName,
+                      ),
+                      GFListTile(
+                        titleText: 'Purchase Date',
+                        subTitleText: _productModel.purchaseDate,
+                      ),
+                      GFListTile(
+                        titleText: 'Warranty Expiry Date',
+                        subTitleText: _productModel.warrantyDate,
                       ),
                       GFListTile(
                         titleText: 'Warranty Months',
