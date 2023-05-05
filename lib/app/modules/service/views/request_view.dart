@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wekeep/app/data/models/request_model.dart';
 import 'package:wekeep/app/data/models/serviceProvider_model.dart';
-import 'package:wekeep/app/global_widgets/appBar.dart';
+import 'package:wekeep/app/ui/theme/color_theme.dart';
+import 'package:wekeep/app/ui/widgets/appBar.dart';
 import 'package:wekeep/app/modules/service/controllers/service_controller.dart';
 
 class RequestView extends GetView<ServiceController> {
@@ -12,7 +13,7 @@ class RequestView extends GetView<ServiceController> {
     ServiceProvider serviceModel = Get.arguments;
 
     return Scaffold(
-      appBar: appBar,
+      appBar: getAppBar('WeKeep'),
       body: Center(
         child: Column(children: [
           Padding(
@@ -68,11 +69,18 @@ class RequestView extends GetView<ServiceController> {
                       },
                     ),
                     ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(kprimaryColor)),
                         onPressed: () async {
                           RequestModel requestModel = RequestModel(
                               img:
                                   'https://lh3.googleusercontent.com/a/AATXAJwn7u2KvmoKJnNbsWclKbLCJEqDcGhI-iCq0mU-9Q=s96-c',
                               name: controller.nameController.text,
+                              userName:
+                                  controller.homeController.userModel.name,
+                              userPhotoUrl:
+                                  controller.homeController.userModel.photoUrl,
                               desc: controller.messageController.text,
                               token: controller.homeController.userModel.token,
                               uid: controller.homeController.userModel.id);
