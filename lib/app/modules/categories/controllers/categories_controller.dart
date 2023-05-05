@@ -11,7 +11,7 @@ class CategoriesController extends GetxController {
   CategoriesController({required this.repository});
 
   final categoryList = <CategoryModel>[].obs;
-  final pickedColor = Color(0x1d1d1d).obs;
+  final pickedColor = Color(0xff1d1d1d).obs;
   final categoryChanged = false.obs;
   final pickedCategoryId = ''.obs;
   final pickedCategoryName = ''.obs;
