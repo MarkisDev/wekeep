@@ -16,10 +16,11 @@ class ServiceRepository {
     return stream.map((List<DocumentSnapshot> dL) {
       var x = [];
       dL.forEach((DocumentSnapshot document) {
-        print(document.id);
         var loc = document['location']['geopoint'];
         double k = center.kmDistance(lat: loc.latitude, lng: loc.longitude);
         ServiceProvider prov = ServiceProvider(
+            address: document['address'],
+            phoneNum: document['phoneNum'],
             uid: document.id,
             coords: loc,
             name: document['shopName'],
