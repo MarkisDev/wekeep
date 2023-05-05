@@ -21,9 +21,12 @@ class FirestoreDb {
       'name': productModel.name,
       'categoryId': productModel.categoryId,
       'categoryName': productModel.categoryName,
+      'warrantyDate': productModel.warrantyDate,
+      'purchaseDate': productModel.purchaseDate,
       'warrantyMonths': productModel.warrantyMonths,
       'notes': productModel.notes,
       'receiptUrl': productModel.receiptUrl,
+      'productUrl': productModel.productUrl,
     });
 
     await _firebaseFirestore
@@ -131,6 +134,8 @@ class FirestoreDb {
       'img': requestModel.img,
       'token': requestModel.token,
       'uid': requestModel.uid,
+      'userName': requestModel.userName,
+      'userPhotoUrl': requestModel.userPhotoUrl
     });
   }
 }
