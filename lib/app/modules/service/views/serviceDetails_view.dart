@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wekeep/app/data/models/serviceProvider_model.dart';
-import 'package:wekeep/app/global_widgets/appBar.dart';
+import 'package:wekeep/app/ui/theme/color_theme.dart';
+import 'package:wekeep/app/ui/widgets/appBar.dart';
 import 'package:get/get.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:wekeep/app/modules/service/controllers/service_controller.dart';
@@ -11,7 +12,7 @@ class ServiceDetailsView extends GetView<ServiceController> {
   Widget build(BuildContext context) {
     ServiceProvider serviceModel = Get.arguments;
     return Scaffold(
-      appBar: appBar,
+      appBar: getAppBar('WeKeep'),
       body: Center(
           child: Column(
         children: [
@@ -42,6 +43,8 @@ class ServiceDetailsView extends GetView<ServiceController> {
             title: Center(child: Text("Avg price  - \u{20B9}1000")),
           )),
           ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(kprimaryColor)),
               onPressed: () async {
                 controller.center.value = await controller.getLocation();
                 Get.to(() => RequestView(), arguments: serviceModel);
