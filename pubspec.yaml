@@ -22,12 +22,15 @@ dependencies:
   flutter_email_sender: 5.1.0
   geoflutterfire: 3.0.3
   geolocator: 9.0.1
-  firebase_messaging: ^12.0.2
   flutter_local_notifications: ^9.7.0
   http: ^0.13.5
   flutter_svg: ^1.1.5
   getwidget: ^2.0.4
   flutter_signin_button: ^2.0.0
+  onesignal_flutter: ^3.5.1
+  cached_network_image: ^3.2.3
+  firebase_core_platform_interface: 4.5.1
+  firebase_messaging:
   flutter:
     sdk: flutter
 
