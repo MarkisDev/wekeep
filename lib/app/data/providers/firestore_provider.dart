@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:wekeep/app/data/models/category_model.dart';
 import 'package:wekeep/app/data/models/product_model.dart';
 import 'package:wekeep/app/data/models/request_model.dart';
 import 'package:wekeep/app/data/models/serviceProvider_model.dart';
 import 'package:wekeep/app/data/models/user_models.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
+
 import 'dart:async';
 
 class FirestoreDb {
@@ -109,9 +110,8 @@ class FirestoreDb {
 
 // ------------ SERVICES --------------
 
-  static Stream<List<DocumentSnapshot<Map<String, dynamic>>>> getShops(
-      GeoFirePoint center) {
-    final geo = Geoflutterfire();
+  static Stream<List<DocumentSnapshot<Object?>>> getShops(GeoFirePoint center) {
+    final geo = GeoFlutterFire();
     var collectionReference = _firebaseFirestore.collection('shops');
     double radius = 50;
     String field = 'location';

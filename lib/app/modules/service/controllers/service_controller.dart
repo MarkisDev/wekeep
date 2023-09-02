@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wekeep/app/data/repositories/service_repository.dart';
 import 'package:wekeep/app/modules/home/controllers/home_controller.dart';
@@ -10,15 +10,15 @@ class ServiceController extends GetxController {
   ServiceController({required this.repository});
 
   late final HomeController homeController;
-  final geo = Geoflutterfire();
+  final geo = GeoFlutterFire();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
   var messageController = TextEditingController();
   var emailController = TextEditingController();
   var shopsList = [].obs;
   final center =
-      Geoflutterfire().point(latitude: 12.9633978, longitude: 77.58550823).obs;
-  get shops => shopsList.value;
+      GeoFlutterFire().point(latitude: 12.9633978, longitude: 77.58550823).obs;
+  get shops => shopsList;
 
   getLocation() async {
     bool serviceEnabled;
